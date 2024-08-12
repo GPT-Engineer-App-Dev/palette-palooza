@@ -47,8 +47,8 @@ const ColorPaletteGenerator = () => {
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-        <div className="flex-grow space-y-4">
+      <div className="flex flex-col lg:flex-row space-y-4 lg:space-y-0 lg:space-x-8">
+        <div className="flex-grow space-y-4 lg:w-1/3">
           <div className="flex space-x-4">
             <div className="relative flex-grow">
               <Input
@@ -62,11 +62,6 @@ const ColorPaletteGenerator = () => {
                 style={{ backgroundColor: baseColor }}
                 onClick={() => setShowColorPicker(!showColorPicker)}
               ></div>
-              {showColorPicker && (
-                <div className="absolute z-10 mt-2">
-                  <HexColorPicker color={baseColor} onChange={setBaseColor} />
-                </div>
-              )}
             </div>
             <Button onClick={generateRandomPalette} variant="outline" className="flex-shrink-0 bg-white text-gray-800 border-gray-300 hover:bg-gray-100">
               <RefreshCw className="w-4 h-4 mr-2" /> Random
@@ -83,21 +78,28 @@ const ColorPaletteGenerator = () => {
               className="w-[200px]"
             />
           </div>
+          {showColorPicker && (
+            <div className="mt-4">
+              <HexColorPicker color={baseColor} onChange={setBaseColor} />
+            </div>
+          )}
+        </div>
+        <div className="lg:w-2/3">
+          {palette.length > 0 && (
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5 }}
+              className="space-y-4"
+            >
+              <ColorPalette colors={palette} />
+              <Button onClick={savePalette} className="w-full bg-blue-500 hover:bg-blue-600 text-white">
+                <Heart className="w-4 h-4 mr-2" /> Save Palette
+              </Button>
+            </motion.div>
+          )}
         </div>
       </div>
-      {palette.length > 0 && (
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="space-y-4"
-        >
-          <ColorPalette colors={palette} />
-          <Button onClick={savePalette} className="w-full bg-blue-500 hover:bg-blue-600 text-white">
-            <Heart className="w-4 h-4 mr-2" /> Save Palette
-          </Button>
-        </motion.div>
-      )}
       {favorites.length > 0 && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -106,7 +108,7 @@ const ColorPaletteGenerator = () => {
           className="space-y-4"
         >
           <h2 className="text-2xl font-bold text-gray-800">Favorite Palettes</h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {favorites.map((favPalette, index) => (
               <motion.div
                 key={index}
