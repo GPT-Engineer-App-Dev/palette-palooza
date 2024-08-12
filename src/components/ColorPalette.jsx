@@ -1,6 +1,7 @@
 import React from 'react';
 import { toast } from "sonner";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 const ColorPalette = ({ colors, mini = false }) => {
   const copyToClipboard = (color) => {
@@ -15,8 +16,11 @@ const ColorPalette = ({ colors, mini = false }) => {
       mini ? "grid-cols-5" : "grid-cols-2 sm:grid-cols-3 md:grid-cols-5"
     )}>
       {colors.map((color, index) => (
-        <div
+        <motion.div
           key={index}
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.3, delay: index * 0.1 }}
           className={cn(
             "rounded-lg shadow-md overflow-hidden cursor-pointer transition-transform hover:scale-105",
             mini ? "aspect-[2/1]" : "aspect-square"
@@ -30,7 +34,7 @@ const ColorPalette = ({ colors, mini = false }) => {
               mini ? "text-xs" : "text-sm"
             )}>{color}</span>
           </div>
-        </div>
+        </motion.div>
       ))}
     </div>
   );
