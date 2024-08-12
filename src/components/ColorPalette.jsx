@@ -22,15 +22,15 @@ const ColorPalette = ({ colors, mini = false }) => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.3, delay: index * 0.1 }}
           className={cn(
-            "rounded-lg shadow-md overflow-hidden cursor-pointer transition-transform hover:scale-105",
+            "rounded-2xl shadow-md overflow-hidden cursor-pointer transition-transform hover:scale-105",
             mini ? "aspect-[2/1]" : "aspect-square"
           )}
           style={{ backgroundColor: color }}
           onClick={() => copyToClipboard(color)}
         >
-          <div className="h-full flex items-end justify-center p-2 bg-black bg-opacity-0 hover:bg-opacity-20 transition-opacity">
+          <div className="h-full flex items-end justify-center p-2 bg-black bg-opacity-0 hover:bg-opacity-10 transition-opacity">
             <span className={cn(
-              "text-white font-medium",
+              "text-white font-medium mix-blend-difference",
               mini ? "text-xs" : "text-sm"
             )}>{color}</span>
           </div>

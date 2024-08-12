@@ -9,7 +9,7 @@ import ColorPalette from './ColorPalette';
 import { generateRandomColor, generatePaletteFromColor } from '../utils/colorUtils';
 
 const ColorPaletteGenerator = () => {
-  const [baseColor, setBaseColor] = useState('#6D28D9');
+  const [baseColor, setBaseColor] = useState('#007AFF');
   const [palette, setPalette] = useState([]);
   const [showColorPicker, setShowColorPicker] = useState(false);
   const [colorCount, setColorCount] = useState(5);
@@ -55,10 +55,10 @@ const ColorPaletteGenerator = () => {
                 type="text"
                 value={baseColor}
                 onChange={(e) => setBaseColor(e.target.value)}
-                className="pr-10"
+                className="pr-10 border-gray-300 focus:border-blue-500 focus:ring focus:ring-blue-200 focus:ring-opacity-50 rounded-lg"
               />
               <div
-                className="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 rounded cursor-pointer border border-gray-300"
+                className="absolute right-2 top-1/2 -translate-y-1/2 w-6 h-6 rounded-full cursor-pointer border border-gray-300"
                 style={{ backgroundColor: baseColor }}
                 onClick={() => setShowColorPicker(!showColorPicker)}
               ></div>
@@ -68,12 +68,12 @@ const ColorPaletteGenerator = () => {
                 </div>
               )}
             </div>
-            <Button onClick={generateRandomPalette} variant="outline" className="flex-shrink-0">
+            <Button onClick={generateRandomPalette} variant="outline" className="flex-shrink-0 bg-white text-gray-800 border-gray-300 hover:bg-gray-100">
               <RefreshCw className="w-4 h-4 mr-2" /> Random
             </Button>
           </div>
           <div className="flex items-center space-x-4">
-            <span className="text-sm font-medium">Colors: {colorCount}</span>
+            <span className="text-sm font-medium text-gray-700">Colors: {colorCount}</span>
             <Slider
               value={[colorCount]}
               onValueChange={(value) => setColorCount(value[0])}
@@ -93,7 +93,7 @@ const ColorPaletteGenerator = () => {
           className="space-y-4"
         >
           <ColorPalette colors={palette} />
-          <Button onClick={savePalette} className="w-full">
+          <Button onClick={savePalette} className="w-full bg-blue-500 hover:bg-blue-600 text-white">
             <Heart className="w-4 h-4 mr-2" /> Save Palette
           </Button>
         </motion.div>
@@ -105,7 +105,7 @@ const ColorPaletteGenerator = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="space-y-4"
         >
-          <h2 className="text-2xl font-bold">Favorite Palettes</h2>
+          <h2 className="text-2xl font-bold text-gray-800">Favorite Palettes</h2>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             {favorites.map((favPalette, index) => (
               <motion.div
@@ -119,7 +119,7 @@ const ColorPaletteGenerator = () => {
                 <Button
                   variant="destructive"
                   size="icon"
-                  className="absolute top-2 right-2"
+                  className="absolute top-2 right-2 bg-red-500 hover:bg-red-600"
                   onClick={() => removePalette(index)}
                 >
                   <Trash2 className="w-4 h-4" />
