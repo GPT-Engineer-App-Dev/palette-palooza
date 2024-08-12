@@ -2,15 +2,15 @@ export const generateRandomColor = () => {
   return '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
 };
 
-export const generatePaletteFromColor = (baseColor) => {
+export const generatePaletteFromColor = (baseColor, count = 5) => {
   const hsl = hexToHSL(baseColor);
   const palette = [];
 
-  // Generate 5 colors based on the base color
-  for (let i = 0; i < 5; i++) {
-    const h = (hsl.h + i * 30) % 360;
-    const s = Math.min(100, Math.max(0, hsl.s + (i - 2) * 10));
-    const l = Math.min(100, Math.max(0, hsl.l + (i - 2) * 10));
+  // Generate colors based on the base color
+  for (let i = 0; i < count; i++) {
+    const h = (hsl.h + i * (360 / count)) % 360;
+    const s = Math.min(100, Math.max(0, hsl.s + (i - Math.floor(count / 2)) * 10));
+    const l = Math.min(100, Math.max(0, hsl.l + (i - Math.floor(count / 2)) * 10));
     palette.push(hslToHex(h, s, l));
   }
 

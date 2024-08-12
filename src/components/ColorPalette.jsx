@@ -1,7 +1,8 @@
 import React from 'react';
 import { toast } from "sonner";
+import { cn } from "@/lib/utils";
 
-const ColorPalette = ({ colors }) => {
+const ColorPalette = ({ colors, mini = false }) => {
   const copyToClipboard = (color) => {
     navigator.clipboard.writeText(color).then(() => {
       toast.success(`Copied ${color} to clipboard!`);
@@ -9,16 +10,25 @@ const ColorPalette = ({ colors }) => {
   };
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
+    <div className={cn(
+      "grid gap-2",
+      mini ? "grid-cols-5" : "grid-cols-2 sm:grid-cols-3 md:grid-cols-5"
+    )}>
       {colors.map((color, index) => (
         <div
           key={index}
-          className="aspect-square rounded-lg shadow-md overflow-hidden cursor-pointer transition-transform hover:scale-105"
+          className={cn(
+            "rounded-lg shadow-md overflow-hidden cursor-pointer transition-transform hover:scale-105",
+            mini ? "aspect-[2/1]" : "aspect-square"
+          )}
           style={{ backgroundColor: color }}
           onClick={() => copyToClipboard(color)}
         >
           <div className="h-full flex items-end justify-center p-2 bg-black bg-opacity-0 hover:bg-opacity-20 transition-opacity">
-            <span className="text-white text-sm font-medium">{color}</span>
+            <span className={cn(
+              "text-white font-medium",
+              mini ? "text-xs" : "text-sm"
+            )}>{color}</span>
           </div>
         </div>
       ))}
