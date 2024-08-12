@@ -4,14 +4,23 @@ export const generateRandomColor = () => {
 
 export const generatePaletteFromColor = (baseColor, count = 5) => {
   const hsl = hexToHSL(baseColor);
-  const palette = [];
+  const palette = [baseColor];
 
-  // Generate colors based on the base color
-  for (let i = 0; i < count; i++) {
-    const h = (hsl.h + i * (360 / count)) % 360;
-    const s = Math.min(100, Math.max(0, hsl.s + (i - Math.floor(count / 2)) * 10));
-    const l = Math.min(100, Math.max(0, hsl.l + (i - Math.floor(count / 2)) * 10));
-    palette.push(hslToHex(h, s, l));
+  // Generate colors based on color harmony rules
+  const harmonyRules = [
+    { name: 'Analogous', hueShift: 30 },
+    { name: 'Complementary', hueShift: 180 },
+    { name: 'Triadic', hueShift: 120 },
+    { name: 'Split Complementary', hueShift: 150 },
+    { name: 'Tetradic', hueShift: 90 },
+  ];
+
+  for (let i = 1; i < count; i++) {
+    const rule = harmonyRules[i % harmonyRules.length];
+    const newHue = (hsl.h + rule.hueShift * Math.floor((i + 1) / 2) * (i % 2 ? 1 : -1) + 360) % 360;
+    const newSat = Math.min(100, Math.max(0, hsl.s + (Math.random() - 0.5) * 20));
+    const newLight = Math.min(90, Math.max(10, hsl.l + (Math.random() - 0.5) * 20));
+    palette.push(hslToHex(newHue, newSat, newLight));
   }
 
   return palette;
