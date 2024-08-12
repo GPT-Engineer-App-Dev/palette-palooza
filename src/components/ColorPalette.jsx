@@ -12,7 +12,7 @@ const ColorPalette = ({ colors, mini = false }) => {
 
   return (
     <div className={cn(
-      "grid gap-2",
+      "grid gap-4",
       mini ? "grid-cols-5" : "grid-cols-2 sm:grid-cols-3 md:grid-cols-5"
     )}>
       {colors.map((color, index) => (
@@ -23,7 +23,7 @@ const ColorPalette = ({ colors, mini = false }) => {
           transition={{ duration: 0.3, delay: index * 0.1 }}
           className={cn(
             "rounded-2xl shadow-md overflow-hidden cursor-pointer transition-transform hover:scale-105",
-            mini ? "aspect-[2/1]" : "aspect-square"
+            mini ? "aspect-square" : "aspect-square"
           )}
           style={{ backgroundColor: color }}
           onClick={() => copyToClipboard(color)}
